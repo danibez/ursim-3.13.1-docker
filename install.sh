@@ -67,25 +67,26 @@ fi
 
 set -e
 
-commonDependencies='libcurl3 libjava3d-* ttf-dejavu* fonts-ipafont fonts-baekmuk fonts-nanum fonts-arphic-uming fonts-arphic-ukai'
+#commonDependencies='libcurl3 libjava3d-* ttf-dejavu* fonts-ipafont fonts-baekmuk fonts-nanum fonts-arphic-uming fonts-arphic-ukai'
+commonDependencies='libcurl4 openjdk-8-jre libjava3d-* ttf-dejavu* fonts-ipafont fonts-baekmuk fonts-nanum fonts-arphic-uming fonts-arphic-ukai'
 if [[ $(getconf LONG_BIT) == "32" ]]
 then
 	packages=`ls $PWD/ursim-dependencies/*i386.deb`
-	pkexec bash -c "apt-get -y install $commonDependencies && (echo '$packages' | xargs dpkg -i --force-overwrite)"
+	apt-get -y install $commonDependencies && (echo $packages | xargs dpkg -i --force-overwrite)
 else
 	packages=`ls $PWD/ursim-dependencies/*amd64.deb`
-	pkexec bash -c "apt-get -y install lib32gcc1 lib32stdc++6 libc6-i386 $commonDependencies && (echo '$packages' | xargs dpkg -i --force-overwrite)"
+	apt-get -y install lib32gcc1 lib32stdc++6 libc6-i386 $commonDependencies && (echo $packages | xargs dpkg -i --force-overwrite)
 fi
 
 source version.sh
-URSIM_ROOT=$(dirname $(readlink -f $0))
+URSIM_ROOT=$PWD
 
 echo "Install Daemon Manager"
 installDaemonManager
 
 for TYPE in UR3 UR5 UR10
 do
-	FILE=$HOME/Desktop/ursim-$VERSION.$TYPE.desktop
+	FILE=$HOME/ursim-$VERSION.$TYPE.desktop
 	echo "[Desktop Entry]" > $FILE
 	echo "Version=$VERSION" >> $FILE
 	echo "Type=Application" >> $FILE

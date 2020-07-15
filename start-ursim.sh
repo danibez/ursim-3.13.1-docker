@@ -2,7 +2,7 @@
 
 export LD_LIBRARY_PATH=/opt/urtool-3.0/lib
 
-URSIM_ROOT=$(dirname $(readlink -f $0))
+URSIM_ROOT=$PWD
 
 pushd $URSIM_ROOT &>/dev/null
 

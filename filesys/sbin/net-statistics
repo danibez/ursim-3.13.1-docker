@@ -1,7 +1,7 @@
 #!/usr/bin/perl
 
 my $interface = "eth0";
-my $isDhcp = 0;
+my $isDhcp = 1;
 my $isStatic = 0;
 
 open(INTF,"</etc/network/interfaces");
@@ -48,15 +48,16 @@ if ($isNetDown) {
 
 foreach $line (@ifconfig) {
     chomp $line;
-    if($line =~ /inet addr/) {
-	$addr = $line;
-	$addr =~ s/.*inet addr:([^ ]*).*/$1/;
+    if($line =~ /inet /) {
+        $addr = $line;
+        $addr =~ s/(.*inet) ([^ ]*) (.*)/$2/;
     }
-    if($line =~ /Mask/) {
-	$mask = $line;
-	$mask =~ s/.*Mask:([^ ]*).*/$1/;
+    if($line =~ /netmask/) {
+        $mask = $line;
+        $mask =~ s/(.*netmask) ([^ ]*) (.*)/$2/;
     }
 }
+
 
 my @route = split(/\n/,`/sbin/route -n`);
 my $gateway = "";
