@@ -1,0 +1,11 @@
+<urn:maven/artifact#com.ur.release:package-g3:3.13.1.10297::tar.gz>
+    <urn:com/ur/metadata#buildNumber> "10297" ;
+    <urn:com/ur/metadata#buildDate> "2020-05-25" ;
+    <urn:com/ur/metadata#marketingVersion> "3.13.1.10297" ;
+    <urn:com/ur/metadata#dependencies> "
+urcontrol-g3 = 29.3.34
+ur-polyscope-platform-g3 = 74.4.1127
+help-g3 = 3.8.61
+robot-installer-g3 = 1.6.4
+legal_notices = 1.0.10
+" .
